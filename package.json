@@ -28,7 +28,8 @@
     "chai": "^4.1.2",
     "ethjs": "^0.4.0",
     "mocha": "^5.2.0",
-    "truffle": "^4.1.13"
+    "truffle": "^4.1.13",
+    "truffle-contract": "^3.0.6"
   },
   "devDependencies": {
     "ganache-core": "^2.1.3",
