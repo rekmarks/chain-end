@@ -15,8 +15,6 @@ describe('deployment', function() {
   const web3 = new Web3(provider)
 
   const StandardERC20 = Contract(StandardERC20_JSON)
-  // StandardERC20.setProvider(provider)
-  // deployer.addContract(StandardERC20)
 
   const gas = 3141592
 
@@ -39,7 +37,7 @@ describe('deployment', function() {
     deployer = new Deployer(provider, accounts[0], gas)
 
     await deployer.deploy(
-      StandardERC20,
+      StandardERC20.contractName,
       contractParams.token.StandardERC20.a,
     )
 
@@ -60,17 +58,10 @@ describe('deployment', function() {
 
   it('deploys a second contract correctly, without changing the first', async function() {
 
-    // StandardERC20.defaults({
-    //     gas: 3141592,
-    //     from: accounts[1]
-    // })
-
-    // let instance2 = await StandardERC20.new(...StandardERC20Params2)
-
     deployer.setAccount(accounts[1])
 
     await deployer.deploy(
-      StandardERC20,
+      StandardERC20.contractName,
       contractParams.token.StandardERC20.b,
     )
 

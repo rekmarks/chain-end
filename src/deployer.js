@@ -4,6 +4,8 @@
  * Assumes pre-compiled Truffle artifacts of contracts.
  */
 
+const Contract = require('truffle-contract')
+
 const defaultContracts = require('./contracts')
 
 class Deployer {
@@ -60,21 +62,28 @@ class Deployer {
       throw new Error('addContract: duplicate contract name: ' + contractName)
     }
 
-    this.contractTypes[contractName] = contractJSON
+    // undeployed contracts only
+    if (contractJSON.isDeployed()) {
+      throw new Error("addContract: truffleContract is deployed instance")
+    }
+
+    const contract = Contract(contractJSON)
+
+    this.contractTypes[contractName] = contract
   }
 
   /**
    * Deploys a truffleContract with constructorParams. Asynchronous pure 
    * function.
-   * @param  {object} truffleContract   the contract to deploy
+   * @param  {string} contractName      name of the contract to deploy
    * @param  {array}  constructorParams contract constructor parameters
    * @return {object}                   the deployed instance
    */
-  async deploy(truffleContract, constructorParams) {
+  async deploy(contractName, constructorParams) {
 
-    // undeployed contracts only
-    if (truffleContract.isDeployed()) {
-      throw new Error("deploy: truffleContract is deployed instance")
+    const truffleContract = this.contractTypes[contractName]
+    if (!truffleContract) {
+      throw new Error('deploy: contract not found')
     }
     
     const contractInstance = await _deploy(

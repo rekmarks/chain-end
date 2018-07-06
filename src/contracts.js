@@ -4,6 +4,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const Contract = require('truffle-contract')
 
 const contractsPath = __dirname + '/default-contracts'
 
@@ -19,7 +20,9 @@ files.forEach( file => {
     throw new Error('contracts: invalid file: ' + file)
   }
 
-  contracts[split[0]] = require(contractsPath + '/' + file)
+  const contractJSON = require(contractsPath + '/' + file)
+
+  contracts[split[0]] = Contract(contractJSON)
 })
 
 module.exports = contracts
