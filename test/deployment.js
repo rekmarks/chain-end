@@ -3,9 +3,9 @@ const Contract = require('truffle-contract')
 const Web3 = require('web3')
 const assert = require('assert')
 
-const Deployer = require('../src/deployer')
+const Deployer = require('../index')
 const contractParams = require('./helper')
-const StandardERC20_JSON = require('./sample_contracts/StandardERC20.json')
+const StandardERC20_JSON = require('../src/default-contracts/StandardERC20.json')
 
 let accounts
 

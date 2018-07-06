@@ -1,9 +1,11 @@
-
 /**
  * Smart contract deployment manager.
  * Deploys contracts and keeps track of them.
  * Assumes pre-compiled Truffle artifacts of contracts.
  */
+
+const defaultContracts = require('./contracts')
+
 class Deployer {
 
   /**
@@ -22,6 +24,8 @@ class Deployer {
 
     this.instances = {}
     this._instanceCounts = {}
+
+    this.contractTypes = defaultContracts
   }
 
   /**
@@ -38,6 +42,25 @@ class Deployer {
    */
   setGas(gas) {
     this.config.gasLimit = gas
+  }
+
+  /**
+   * Adds a contract type
+   * @param {object} contractJSON Truffle contract artifact from: truffle compile
+   */
+  addContract(contractJSON) {
+
+    // TODO: more input validation?
+
+    const contractName = contractJSON.contractName
+
+    if (!contractName) {
+      throw new Error('addContract: missing contract name')
+    } else if (this.contractTypes[contractName]) {
+      throw new Error('addContract: duplicate contract name: ' + contractName)
+    }
+
+    this.contractTypes[contractName] = contractJSON
   }
 
   /**
@@ -133,20 +156,5 @@ async function _deploy (
 
   return await contract.new(...constructorParams)
 }
-
-// original schema
-// let deployer = {
-
-//   config: {
-//     provider: null,
-//     accounts: null,
-//     gas: defaultGas
-//   },
-
-//   instances: {},
-//   _instanceCounts: {},
-  
-//   deploy: deployWrapper,
-// }
 
 module.exports = Deployer
