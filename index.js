@@ -1,5 +1,5 @@
 
-const deploy = require('./src/deployer')
-const contracts = require('./src/contracts')
+const deployer = require('./src/deployer')
+// const contracts = require('./src/contracts')
 
-module.exports = contracts
+module.exports = deployer

@@ -3,7 +3,7 @@ const Contract = require('truffle-contract')
 const Web3 = require('web3')
 const assert = require('assert')
 
-const deployer = require('../src/deployer')
+const Deployer = require('../src/deployer')
 const contractParams = require('./helper')
 const StandardERC20_JSON = require('./sample_contracts/StandardERC20.json')
 
@@ -30,18 +30,18 @@ describe('deployment', function() {
       .then(accs => accounts = accs)
   })
 
+  let deployer
+
   let instance1, instance2
 
   it('deploys a contract correctly', async function() {
 
-    // this.timeout(3600000)
+    deployer = new Deployer(provider, accounts[0], gas)
 
     await deployer.deploy(
       StandardERC20,
       contractParams.token.StandardERC20.a,
-      provider,
-      accounts[0],
-      gas)
+    )
 
     instance1 = deployer.instances.StandardERC20['1']
 
@@ -67,12 +67,12 @@ describe('deployment', function() {
 
     // let instance2 = await StandardERC20.new(...StandardERC20Params2)
 
+    deployer.setAccount(accounts[1])
+
     await deployer.deploy(
       StandardERC20,
       contractParams.token.StandardERC20.b,
-      provider,
-      accounts[1],
-      gas)
+    )
 
     instance2 = deployer.instances.StandardERC20['2']
 

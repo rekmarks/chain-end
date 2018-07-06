@@ -1,55 +1,95 @@
 
-// const Contract = require('truffle-contract')
-
-const defaultGas = 3141592
-
-export default class Deployer {
+/**
+ * Smart contract deployment manager.
+ * Deploys contracts and keeps track of them.
+ * Assumes pre-compiled Truffle artifacts of contracts.
+ */
+class Deployer {
 
   /**
-   * [constructor description]
-   * @param  {[type]} provider [description]
-   * @param  {[type]} account  [description]
-   * @return {[type]}          [description]
+   * Constructor. Sets web3 provider, deploying account, and gas limit.
+   * @param  {object} web3Provider   the web3 provider
+   * @param  {string} account        the deploying account id
+   * @param  {number} gasLimit       the deployment transaction gas limit
    */
-  constructor(provider, account) {
+  constructor(web3Provider, account, gasLimit) {
 
     this.config = {
-      provider: provider,
-      gas: defaultGas
+      provider: web3Provider,
+      account: account,
+      gasLimit: gasLimit
     }
-    setAccount(account)
 
     this.instances = {}
     this._instanceCounts = {}
   }
 
   /**
-   * [setAccount description]
-   * @param {[type]} account [description]
+   * Sets the deploying account
+   * @param {string} account the ID of the deploying account
    */
   setAccount(account) {
     this.config.account = account
   }
 
   /**
-   * [setGas description]
-   * @param {[type]} gas [description]
+   * Sets the gas limit of the deployment transaction // TODO: confirm
+   * @param {number} gas the gas limit
    */
   setGas(gas) {
-    this.config.gas = gas
+    this.config.gasLimit = gas
+  }
+
+  /**
+   * Deploys a truffleContract with constructorParams. Asynchronous pure 
+   * function.
+   * @param  {object} truffleContract   the contract to deploy
+   * @param  {array}  constructorParams contract constructor parameters
+   * @return {object}                   the deployed instance
+   */
+  async deploy(truffleContract, constructorParams) {
+
+    // undeployed contracts only
+    if (truffleContract.isDeployed()) {
+      throw new Error("deploy: truffleContract is deployed instance")
+    }
+    
+    const contractInstance = await _deploy(
+      truffleContract, 
+      constructorParams,
+      this.config.provider,
+      this.config.account,
+      this.config.gasLimit
+    )
+
+    // deployed instance must have transactionHash property
+    if (!contractInstance.transactionHash) {
+      throw new Error("deploy: contractInstance missing transactionHash")
+    } 
+
+    this._addInstance(contractInstance)
+
+    // return the deployed contract because the caller probably wants
+    // to keep track of it
+    return contractInstance
   }
   
   /**
-   * [addInstance description]
-   * @param {[type]} contractInstance     [description]
+   * PRIVATE. Stores contract instance.
+   * @param {object} a deployed contract instance     
    */
-  function _addInstance(contractInstance) {
+  _addInstance(contractInstance) {
+
+    // a deployed instance must have the transactionHash property
+    if (!contractInstance.transactionHash) {
+      throw new Error("_addInstance: contractInstance missing transactionHash")
+    } 
 
     // get the contract name per the Truffle artifact schema
-    const contractName = instance.constructor._json.contractName
+    const contractName = contractInstance.constructor._json.contractName
 
-    // TODO: improve instance storage, search, and access
-    // increment count of contract
+    // TODO: revamp instance storage, search, and access
+    // increment count of contract?
     if (this._instanceCounts[contractName]) {
       this._instanceCounts[contractName] += 1
     } else {
@@ -60,38 +100,20 @@ export default class Deployer {
     // store instance, using count as the id
     this.instances
       [contractName]
-      [ this._instanceCounts[contractName] ] = instance
-  }
-
-  /**
-   * [deploy description]
-   * @param  {[type]} contractType      [description]
-   * @param  {[type]} constructorParams [description]
-   * @return {[type]}                   [description]
-   */
-  deploy(contractType, constructorParams) {
-    _addInstance(
-      _deploy(
-        contractType, 
-        constructorParams,
-        this.config.provider,
-        this.config.account,
-        this.config.gas
-        )
-      )
+      [ this._instanceCounts[contractName] ] = contractInstance
   }
 }
 
 /**
- * Pure function, deploys an instance of contractType
- * @param  { object } truffleContract      [description]
- * @param  { array }  constructorParams [description]
- * @param  { object? } provider          [description]
- * @param  { string? } account           [description]
- * @param  { number } gas               [description]
- * @return { object }                   the deployed instance
+ * Deploys an instance of the truffleContract. Asynchronous pure function.
+ * @param  {object} truffleContract   the contract to deploy
+ * @param  {array}  constructorParams contract constructor parameters
+ * @param  {object} provider          web3 provider
+ * @param  {string} account           deploying account
+ * @param  {number} gas               gas limit // TODO: confirm what this is
+ * @return {object}                   the deployed instance
  */
-function _deploy (
+async function _deploy (
     truffleContract,
     constructorParams, 
     provider,  
@@ -99,10 +121,7 @@ function _deploy (
     gas
   ) {
 
-  // TODO: run debugger and confirm param types
-  // debugger
-
-  // TODO: input validation
+  // TODO: input validation, here or further up the call chain
 
   const contract = Object.assign({}, truffleContract)
   contract.setProvider(provider)
@@ -112,7 +131,7 @@ function _deploy (
       gas: gas
   })
 
-  return contract.new(...constructorParams)
+  return await contract.new(...constructorParams)
 }
 
 // original schema
@@ -129,3 +148,5 @@ function _deploy (
   
 //   deploy: deployWrapper,
 // }
+
+module.exports = Deployer
