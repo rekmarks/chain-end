@@ -39,7 +39,7 @@ class Deployer {
   }
 
   /**
-   * Sets the gas limit of the deployment transaction // TODO: confirm
+   * Sets the gas limit of the deployment transaction
    * @param {number} gas the gas limit
    */
   setGas(gas) {
@@ -52,19 +52,23 @@ class Deployer {
    */
   addContract(contractJSON) {
 
-    // TODO: more input validation?
-
     const contractName = contractJSON.contractName
 
+    // input validation
     if (!contractName) {
       throw new Error('addContract: missing contract name')
+
     } else if (this.contractTypes[contractName]) {
       throw new Error('addContract: duplicate contract name: ' + contractName)
     }
 
-    // undeployed contracts only
-    if (contractJSON.isDeployed()) {
-      throw new Error("addContract: truffleContract is deployed instance")
+    // TODO: does this make sense?
+    if (contractJSON.isDeployed && contractJSON.isDeployed()) {
+      throw new Error('addContract: contract type is deployed instance')
+    }
+
+    if (!contractJSON.abi || !contractJSON.bytecode) {
+      throw new Error('addContract: contract JSON missing bytecode or abi')
     }
 
     const contract = Contract(contractJSON)
@@ -96,7 +100,7 @@ class Deployer {
 
     // deployed instance must have transactionHash property
     if (!contractInstance.transactionHash) {
-      throw new Error("deploy: contractInstance missing transactionHash")
+      throw new Error('deploy: contractInstance missing transactionHash')
     } 
 
     this._addInstance(contractInstance)
@@ -112,37 +116,43 @@ class Deployer {
    */
   _addInstance(contractInstance) {
 
-    // a deployed instance must have the transactionHash property
+    // input validation
     if (!contractInstance.transactionHash) {
-      throw new Error("_addInstance: contractInstance missing transactionHash")
-    } 
-
-    // get the contract name per the Truffle artifact schema
-    const contractName = contractInstance.constructor._json.contractName
-
-    // TODO: revamp instance storage, search, and access
-    // increment count of contract?
-    if (this._instanceCounts[contractName]) {
-      this._instanceCounts[contractName] += 1
-    } else {
-      this._instanceCounts[contractName] = 1
-      this.instances[contractName] = {}
+      throw new Error('_addInstance: contractInstance missing transactionHash')
+    }
+    if (!contractInstance.address) {
+      throw new Error('_addInstance: contractInstance missing address')  
     }
 
-    // store instance, using count as the id
-    this.instances
-      [contractName]
-      [ this._instanceCounts[contractName] ] = contractInstance
+    // get the contract name and address per Truffle artifact schema
+    const contractName = contractInstance.constructor._json.contractName
+    const contractAddress = contractInstance.address
+
+    // check for duplicate addresses
+    const _instances = Object.keys(this.instances)
+    for (let i = 0; i < _instances.length; i++) {
+
+      if (this.instances[_instances[i]][contractAddress]) {
+          throw new Error('_addInstance: duplicate contract address')
+      }
+    }
+
+    // store instance, using its address as the id
+    if (!this.instances[contractName]) {
+      this.instances[contractName] = {}
+    }
+    this.instances[contractName][contractAddress] = contractInstance
   }
 }
 
 /**
- * Deploys an instance of the truffleContract. Asynchronous pure function.
+ * PRIVATE. Deploys an instance of the truffleContract. 
+ * Asynchronous pure function. Assumes valid input.
  * @param  {object} truffleContract   the contract to deploy
  * @param  {array}  constructorParams contract constructor parameters
  * @param  {object} provider          web3 provider
  * @param  {string} account           deploying account
- * @param  {number} gas               gas limit // TODO: confirm what this is
+ * @param  {number} gas               gas limit
  * @return {object}                   the deployed instance
  */
 async function _deploy (
@@ -152,8 +162,6 @@ async function _deploy (
     account,
     gas
   ) {
-
-  // TODO: input validation, here or further up the call chain
 
   const contract = Object.assign({}, truffleContract)
   contract.setProvider(provider)

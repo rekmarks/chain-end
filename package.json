@@ -4,7 +4,8 @@
   "description": "For programmatically deploying pre-compiled smart contracts using Truffle",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "test:debug": "mocha --inspect-brk --inspect"
   },
   "repository": {
     "type": "git",
