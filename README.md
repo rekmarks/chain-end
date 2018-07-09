@@ -9,4 +9,4 @@ Import the package to access the `Deployer` class, which by default supports an 
     - `compiledJSON` must be an undeployed, compiled Truffle artifact, i.e. the output of `truffle compile`
 - deploy and access a deployed contract instance using `const instance = deployer.deploy(contractName, constructorParameters)`
     - contractName must be `StandardERC20` or the name of a contract added using `addContract`
-- consult `src/deployer.js` for additional methods you may want
+- consult `src/deployer.js` for additional methods you may want to use
