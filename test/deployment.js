@@ -1,4 +1,4 @@
-const TestRPC = require('ganache-cli')
+const ganache = require('ganache-cli')
 const Contract = require('truffle-contract')
 const Web3 = require('web3')
 const assert = require('assert')
@@ -7,20 +7,16 @@ const Deployer = require('../index')
 const contractParams = require('./helper')
 const StandardERC20_JSON = require('../src/default-contracts/StandardERC20.json')
 
-let accounts
-
 describe('deployment', function() {
 
-  const provider = TestRPC.provider()
+  const provider = ganache.provider()
   const web3 = new Web3(provider)
-
-  const StandardERC20 = Contract(StandardERC20_JSON)
 
   const gas = 3141592
 
-  // the 'describe' callback doesn't like to be async,
-  // I'm probably missing some config thing
-  let accounts
+  let accounts, deployer, instance1, instance2
+
+  // can't figure out how to make the describe callback async
   before('get accounts', function() {
     return web3
       .eth
@@ -28,16 +24,13 @@ describe('deployment', function() {
       .then(accs => accounts = accs)
   })
 
-  let deployer
-
-  let instance1, instance2
 
   it('deploys a contract correctly', async function() {
 
     deployer = new Deployer(provider, accounts[0], gas)
 
     await deployer.deploy(
-      StandardERC20.contractName,
+      StandardERC20_JSON.contractName,
       contractParams.token.StandardERC20.a,
     )
 
@@ -61,7 +54,7 @@ describe('deployment', function() {
     deployer.setAccount(accounts[1])
 
     await deployer.deploy(
-      StandardERC20.contractName,
+      StandardERC20_JSON.contractName,
       contractParams.token.StandardERC20.b,
     )
 
