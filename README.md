@@ -1,5 +1,5 @@
-# smart-contract-deployment-manager
-For programmatically deploying an arbitrary number of pre-compiled smart contracts
+# chain-end
+For programmatically deploying an arbitrary number of pre-compiled smart contracts, and, Soon:tm:, interacting with them in all sorts of fun ways.
 
 ## usage
 
