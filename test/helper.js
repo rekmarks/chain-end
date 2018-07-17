@@ -18,4 +18,4 @@ const contractParameters = {
   }
 }
 
-module.exports = contractParameters
+module.exports.contractParameters = contractParameters

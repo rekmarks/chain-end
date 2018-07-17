@@ -17,7 +17,7 @@ files.forEach( file => {
   split = file.split('.')
 
   if (split.length != 2 || split[1] !== 'json') {
-    throw new Error('contracts: invalid file: ' + file)
+    throw new Error('contracts: invalid file', file)
   }
 
   const contractJSON = require(contractsPath + '/' + file)

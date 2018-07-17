@@ -1,2 +1,3 @@
 
-module.exports = require('./src/deployer')
+module.exports.Deployer = require('./src/deployer')
+module.exports.contracts = require('./src/contracts')
