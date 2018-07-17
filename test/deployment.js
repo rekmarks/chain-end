@@ -9,6 +9,8 @@ const defaultContracts = require('../index').contracts
 const StandardERC20_JSON = defaultContracts.StandardERC20
 const StandardERC20_Test_JSON = require('./contracts/StandardERC20_Test.json')
 
+console.log(StandardERC20_JSON)
+
 describe('deployment', function() {
 
   const provider = ganache.provider()
