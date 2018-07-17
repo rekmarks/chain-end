@@ -18,7 +18,8 @@ describe('deployment', function() {
 
   let accounts, deployer, instance1, instance2
 
-  // can't figure out how to make the describe callback async
+  // using before() since I can't figure out how to make the describe 
+  // callback async
   before('get accounts', () => {
     return web3
       .eth

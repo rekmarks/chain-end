@@ -15,8 +15,9 @@ class Deployer {
    * @param  {object} web3Provider   the web3 provider
    * @param  {string} account        the deploying account id
    * @param  {number} gasLimit       the deployment transaction gas limit
+   * @param {[type]} [varname] [description]
    */
-  constructor(web3Provider, account, gasLimit) {
+  constructor(web3Provider, account, gasLimit, contractTypes=defaultContracts) {
 
     this.config = {
       provider: web3Provider,
@@ -25,9 +26,8 @@ class Deployer {
     }
 
     this.instances = {}
-    this._instanceCounts = {}
 
-    this.contractTypes = defaultContracts
+    this.contractTypes = contractTypes
   }
 
   /**
@@ -40,10 +40,10 @@ class Deployer {
 
   /**
    * Sets the gas limit of the deployment transaction
-   * @param {number} gas the gas limit
+   * @param {number} gasLimit the gas limit
    */
-  setGas(gas) {
-    this.config.gasLimit = gas
+  setGasLimit(gasLimit) {
+    this.config.gasLimit = gasLimit
   }
 
   /**
@@ -71,9 +71,7 @@ class Deployer {
       throw new Error('addContract: contract JSON missing bytecode or abi')
     }
 
-    const contract = Contract(contractJSON)
-
-    this.contractTypes[contractName] = contract
+    this.contractTypes[contractName] = Contract(contractJSON)
   }
 
   /**
@@ -96,12 +94,7 @@ class Deployer {
       this.config.provider,
       this.config.account,
       this.config.gasLimit
-    )
-
-    // deployed instance must have transactionHash property
-    if (!contractInstance.transactionHash) {
-      throw new Error('deploy: contractInstance missing transactionHash')
-    } 
+    ) // this is validated in _addInstance
 
     this._addInstance(contractInstance)
 

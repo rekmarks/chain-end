@@ -1,7 +1,7 @@
 {
-  "name": "smart-contract-deployment-manager",
+  "name": "chain-end",
   "version": "0.1.0",
-  "description": "For programmatically deploying pre-compiled smart contracts using Truffle",
+  "description": "Programmatic pre-compiled Truffle contract deployment, and soon, more",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rekmarks/smart-contract-deployment-manager.git"
+    "url": "git+https://github.com/rekmarks/chain-end.git"
   },
   "keywords": [
     "Ethereum",
@@ -21,9 +21,9 @@
   "author": "Erik Marks <rekmarks@icloud.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rekmarks/smart-contract-deployment-manager/issues"
+    "url": "https://github.com/rekmarks/chain-end/issues"
   },
-  "homepage": "https://github.com/rekmarks/smart-contract-deployment-manager#readme",
+  "homepage": "https://github.com/rekmarks/chain-end#readme",
   "dependencies": {
     "truffle": "^4.1.13",
     "truffle-contract": "^3.0.6",
