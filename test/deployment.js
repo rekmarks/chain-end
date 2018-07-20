@@ -9,7 +9,7 @@ const defaultContracts = require('../index').contracts
 const StandardERC20_JSON = defaultContracts.StandardERC20
 const StandardERC20_Test_JSON = require('./contracts/StandardERC20_Test.json')
 
-console.log(StandardERC20_JSON)
+// console.log(StandardERC20_JSON)
 
 describe('deployment', function() {
 
@@ -31,6 +31,7 @@ describe('deployment', function() {
 
   before('set up deployer', () => {
     deployer = new Deployer(provider, accounts[0], gas)
+    // deployer = new Deployer(provider, accounts[0])
   })
 
   it('deployer initialized correctly', () => {

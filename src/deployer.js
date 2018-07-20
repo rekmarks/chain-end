@@ -11,18 +11,20 @@ const defaultContracts = require('./contracts')
 class Deployer {
 
   /**
-   * Constructor. Sets web3 provider, deploying account, and gas limit.
+   * Constructor. Sets web3 provider, deploying account, and (optionally) gas limit.
+   * Do not set gas limit for use with MetaMask.
+   * 
    * @param  {object} web3Provider   the web3 provider
    * @param  {string} account        the deploying account id
-   * @param  {number} gasLimit       the deployment transaction gas limit
-   * @param {[type]} [varname] [description]
+   * @param  {number} gasLimit       the deployment transaction gas limit, if desired
+   * @param  {object} contractTypes  the truffle-contracts to use
    */
-  constructor(web3Provider, account, gasLimit, contractTypes=defaultContracts) {
+  constructor(web3Provider, account, gasLimit=null, contractTypes=defaultContracts) {
 
     this.config = {
       provider: web3Provider,
       account: account,
-      gasLimit: gasLimit
+      gasLimit: gasLimit,
     }
 
     this.instances = {}
@@ -77,6 +79,7 @@ class Deployer {
   /**
    * Deploys a truffleContract with constructorParams. Asynchronous pure 
    * function.
+   * 
    * @param  {string} contractName      name of the contract to deploy
    * @param  {array}  constructorParams contract constructor parameters
    * @return {object}                   the deployed instance
@@ -141,6 +144,7 @@ class Deployer {
 /**
  * PRIVATE. Deploys an instance of the truffleContract. 
  * Asynchronous pure function. Assumes valid input.
+ * 
  * @param  {object} truffleContract   the contract to deploy
  * @param  {array}  constructorParams contract constructor parameters
  * @param  {object} provider          web3 provider
@@ -159,10 +163,10 @@ async function _deploy (
   const contract = Object.assign({}, truffleContract)
   contract.setProvider(provider)
 
-  contract.defaults({
-      from: account,
-      gas: gas
-  })
+  // set contract defaults per truffle-contract API
+  // set gas limit if desired, otherwise don't supply it (for use with MetaMask)
+  const contractDefaults = (gas ? { from: account, gas: gas} : {from: account})
+  contract.defaults(contractDefaults)
 
   return await contract.new(...constructorParams)
 }
