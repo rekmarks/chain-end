@@ -8,6 +8,7 @@ The imported package contains two modules:
     - currently, this is just one OpenZeppelin-based ERC20 token contract: `StandardERC20`
 - the `Deployer` class
     - instantiate a deployer using `Deployer(web3Provider, accountAddress, gasLimit)`
+        - for use with MetaMask, use `Deployer(web3Provider, accountAddress)` to let MetaMask handle transaction gas
     - add a contract type to deploy instances of it using `deployer.addContract(compiledJSON)`
         - `compiledJSON` must be an undeployed, compiled Truffle artifact, i.e. the output of `truffle compile`
     - deploy and access a deployed contract instance using `const instance = deployer.deploy(contractName, constructorParameters)`
