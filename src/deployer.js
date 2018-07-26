@@ -77,18 +77,33 @@ class Deployer {
   }
 
   /**
+   * Removes a contract type
+   * @param  {string}   contractName  the name of the contract type to remove
+   * @return {boolean}                true if contract existed, false otherwise
+   */
+  removeContract(contractName) {
+    const contractExisted = !!this.contractTypes[contractName]
+    delete this.contractTypes[contractName]
+    return contractExisted
+  }
+
+  /**
    * Deploys a truffleContract with constructorParams. Asynchronous pure 
    * function.
+   *
+   * Attempts to deploy truffleContract if provided, else attempts to find 
+   * contract in internal contractTypes, else fails.
    * 
-   * @param  {string} contractName      name of the contract to deploy
-   * @param  {array}  constructorParams contract constructor parameters
-   * @return {object}                   the deployed instance
+   * @param  {string}   contractName      name of the contract to deploy
+   * @param  {array}    constructorParams contract constructor parameters
+   * @return {object}                     the deployed instance
    */
   async deploy(contractName, constructorParams) {
 
     const truffleContract = this.contractTypes[contractName]
+
     if (!truffleContract) {
-      throw new Error('deploy: contract not found')
+      throw new Error('deploy: contract neither found nor supplied')
     }
     
     const contractInstance = await _deploy(
