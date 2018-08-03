@@ -5,6 +5,7 @@ const assert = require('assert')
 
 const Deployer = require('../index').Deployer
 const deploy = require('../index').deploy
+const getInstance = require('../index').getInstance
 const contractParams = require('./helper').contractParameters
 const defaultContracts = require('../index').contracts
 const StandardERC20_JSON = defaultContracts.StandardERC20
@@ -143,14 +144,14 @@ describe('deployment', () => {
     // TODO: add test of deployed added contract
   })
   
-  describe('deploy', () => {
+  describe('deploy and getInstance', () => {
 
     const provider = ganache.provider()
     const web3 = new Web3(provider)
 
     const gas = 3141592
 
-    let accounts, deployer, instance1, instance2
+    let accounts, deployer, instance1, address1
 
     // using before() since I can't figure out how to make the describe 
     // callback async
@@ -169,6 +170,33 @@ describe('deployment', () => {
         provider,
         accounts[0],
         gas
+      )
+
+      // instance1 state
+      const deployedName = await instance1.name()
+      const deployedSymbol = await instance1.symbol()
+      const deployedDecimals = await instance1.decimals()
+      const deployedSupply = await instance1.totalSupply()
+      const deployerBalance = await instance1.balanceOf.call(accounts[0])
+
+      assert.equal(deployedName, contractParams.token.StandardERC20.a[0], 'deployed name incorrect')
+      assert.equal(deployedSymbol, contractParams.token.StandardERC20.a[1], 'deployed symbol incorrect')
+      assert.equal(deployedDecimals, contractParams.token.StandardERC20.a[2], 'deployed decimals incorrect')
+      assert.equal(deployedSupply, contractParams.token.StandardERC20.a[3], 'deployed supply incorrect')
+      assert.equal(deployerBalance, contractParams.token.StandardERC20.a[3], 'deployer account balance incorrect')
+
+      address1 = instance1.address
+    })
+
+    it('gets a deployed instance', async () => {
+
+      instance1 = null
+
+      instance1 = await getInstance(
+        StandardERC20_JSON,
+        provider,
+        address1,
+        accounts[0]
       )
 
       // instance1 state

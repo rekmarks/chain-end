@@ -14,6 +14,7 @@ The imported package contains three modules:
     - deploy and access a deployed contract instance using `const instance = deployer.deploy(contractName, constructorParameters)`
         - contractName must be `StandardERC20` or the name of a contract added using `addContract`
     - consult `src/deployer.js` for additional methods you may want to use
-- the 'deploy' function, which exposes the internal API of `Deployer` for stateless deployment
+- the `deploy` function, which exposes the internal API of `Deployer` for stateless deployment
     - deploy directly using: `deploy(contractJSON, constructorParams, web3Provider, web3Account, gasLimit)`
     - `gasLimit` is optional
+- the `getInstance` function, which retrieves a deployed contract given its artifact, its deployed address, a provider, and (optionally) a sender account
