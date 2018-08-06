@@ -6,6 +6,7 @@ const assert = require('assert')
 const Deployer = require('../index').Deployer
 const deploy = require('../index').deploy
 const getInstance = require('../index').getInstance
+const callInstance = require('../index').callInstance
 const contractParams = require('./helper').contractParameters
 const defaultContracts = require('../index').contracts
 const StandardERC20_JSON = defaultContracts.StandardERC20
@@ -144,7 +145,7 @@ describe('deployment', () => {
     // TODO: add test of deployed added contract
   })
   
-  describe('deploy and getInstance', () => {
+  describe('deploy, getInstance, and callInstance', () => {
 
     const provider = ganache.provider()
     const web3 = new Web3(provider)
@@ -211,6 +212,46 @@ describe('deployment', () => {
       assert.equal(deployedDecimals, contractParams.token.StandardERC20.a[2], 'deployed decimals incorrect')
       assert.equal(deployedSupply, contractParams.token.StandardERC20.a[3], 'deployed supply incorrect')
       assert.equal(deployerBalance, contractParams.token.StandardERC20.a[3], 'deployer account balance incorrect')
+    })
+
+    it('calls functions using callInstance', async () => {
+
+      const deployedName = await callInstance(instance1, 'name')
+      const deployedSymbol = await callInstance(instance1, 'symbol')
+      const deployedDecimals = await callInstance(instance1, 'decimals')
+      const deployedSupply = await callInstance(instance1, 'totalSupply')
+      const deployerBalance = await callInstance(instance1, 'balanceOf', [accounts[0]])
+
+      assert.equal(deployedName, contractParams.token.StandardERC20.a[0], 'deployed name incorrect')
+      assert.equal(deployedSymbol, contractParams.token.StandardERC20.a[1], 'deployed symbol incorrect')
+      assert.equal(deployedDecimals, contractParams.token.StandardERC20.a[2], 'deployed decimals incorrect')
+      assert.equal(deployedSupply, contractParams.token.StandardERC20.a[3], 'deployed supply incorrect')
+      assert.equal(deployerBalance, contractParams.token.StandardERC20.a[3], 'deployer account balance incorrect')
+    })
+
+    it('calls functions using callInstance, from different accounts', async () => {
+
+      const deployerBalance = await callInstance(instance1, 'balanceOf', [accounts[0]], accounts[1])
+      const acc1Balance = await callInstance(instance1, 'balanceOf', [accounts[1]], accounts[2])
+      const acc2Balance = await callInstance(instance1, 'balanceOf', [accounts[2]], accounts[3])
+
+      assert.equal(deployerBalance, contractParams.token.StandardERC20.a[3], 'deployer account balance incorrect')
+      assert.equal(acc1Balance, 0, 'account 1 balance incorrect')
+      assert.equal(acc2Balance, 0, 'account 2 balance incorrect')
+    })
+
+    it('calls write functions using callInstance, from different accounts', async () => {
+
+      const transfer1 = await callInstance(instance1, 'transfer', [accounts[1], 500], accounts[0])
+      const transfer2 = await callInstance(instance1, 'transfer', [accounts[2], 250], accounts[1])
+
+      const deployerBalance = await callInstance(instance1, 'balanceOf', [accounts[0]], accounts[1])
+      const acc1Balance = await callInstance(instance1, 'balanceOf', [accounts[1]], accounts[2])
+      const acc2Balance = await callInstance(instance1, 'balanceOf', [accounts[2]], accounts[3])
+
+      assert.equal(deployerBalance, contractParams.token.StandardERC20.a[3] - 500, 'deployer account balance incorrect')
+      assert.equal(acc1Balance, 250, 'account 1 balance incorrect')
+      assert.equal(acc2Balance, 250, 'account 2 balance incorrect')
     })
   })
 })

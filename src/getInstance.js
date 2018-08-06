@@ -17,7 +17,7 @@ async function getInstance (
     contractArtifact,
     web3Provider,
     instanceAddress,
-    senderAccount
+    senderAccount=null
   ) {
 
   const contractName = contractArtifact.contractName
@@ -43,10 +43,10 @@ async function getInstance (
 
   // validate instance
   if (!instance) {
-    throw new Error('getInstance: no intsance was returned')
+    throw new Error('getInstance: no instance was returned')
   }
   if (instance.address !== instanceAddress) {
-    throw new Error('getInstance: instance missing address')  
+    throw new Error('getInstance: invalid instance address')  
   }
 
   return instance

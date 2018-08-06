@@ -18,3 +18,4 @@ The imported package contains three modules:
     - deploy directly using: `deploy(contractJSON, constructorParams, web3Provider, web3Account, gasLimit)`
     - `gasLimit` is optional
 - the `getInstance` function, which retrieves a deployed contract given its artifact, its deployed address, a provider, and (optionally) a sender account
+- the `callInstance` function, which calls a specified function from a given TruffleContract instance and returns the result
