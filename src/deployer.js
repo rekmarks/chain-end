@@ -29,7 +29,10 @@ class Deployer {
 
     this.instances = {}
 
-    this.contractTypes = contractTypes
+    this.contractTypes = {}
+    Object.entries(contractTypes).forEach( ([key, value]) => {
+      this.contractTypes[key] = Contract(value)
+    })
   }
 
   /**

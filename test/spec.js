@@ -8,8 +8,8 @@ const deploy = require('../index').deploy
 const getInstance = require('../index').getInstance
 const callInstance = require('../index').callInstance
 const contractParams = require('./helper').contractParameters
-const zeppelinContracts = require('../index').contracts.OpenZeppelin
-const StandardERC20_JSON = zeppelinContracts.StandardERC20
+const defaultContracts = require('../index').contracts
+const StandardERC20_JSON = defaultContracts.StandardERC20
 const StandardERC20_Test_JSON = require('./contracts/StandardERC20_Test.json')
 
 describe('deployment', () => {
@@ -37,8 +37,8 @@ describe('deployment', () => {
     })
 
     it('deployer initialized correctly', () => {
-      assert.equal(Object.keys(deployer.contractTypes.OpenZeppelin).length, 
-        Object.keys(zeppelinContracts).length,
+      assert.equal(Object.keys(deployer.contractTypes).length, 
+        Object.keys(defaultContracts).length,
         'initial contract types incorrect')
       assert.equal(Object.keys(deployer.instances).length, 0,
         'nonempty initial instances')
@@ -277,7 +277,7 @@ describe('deployment', () => {
     it('MintableERC20', async () => {
 
       mintableInstance = await deploy(
-        zeppelinContracts.MintableERC20,
+        defaultContracts.MintableERC20,
         contractParams.token.StandardERC20.a,
         provider,
         accounts[0],
@@ -305,7 +305,7 @@ describe('deployment', () => {
       const rate = 100
 
       crowdsaleInstance = await deploy(
-        zeppelinContracts.Crowdsale,
+        defaultContracts.Crowdsale,
         [ rate, accounts[1], mintableAddress ],
         provider,
         accounts[1],
