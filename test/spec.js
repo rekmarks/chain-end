@@ -8,8 +8,8 @@ const deploy = require('../index').deploy
 const getInstance = require('../index').getInstance
 const callInstance = require('../index').callInstance
 const contractParams = require('./helper').contractParameters
-const defaultContracts = require('../index').contracts
-const StandardERC20_JSON = defaultContracts.StandardERC20
+const zeppelinContracts = require('../index').contracts.OpenZeppelin
+const StandardERC20_JSON = zeppelinContracts.StandardERC20
 const StandardERC20_Test_JSON = require('./contracts/StandardERC20_Test.json')
 
 describe('deployment', () => {
@@ -37,8 +37,8 @@ describe('deployment', () => {
     })
 
     it('deployer initialized correctly', () => {
-      assert.equal(Object.keys(deployer.contractTypes).length, 
-        Object.keys(defaultContracts).length,
+      assert.equal(Object.keys(deployer.contractTypes.OpenZeppelin).length, 
+        Object.keys(zeppelinContracts).length,
         'initial contract types incorrect')
       assert.equal(Object.keys(deployer.instances).length, 0,
         'nonempty initial instances')
@@ -252,6 +252,73 @@ describe('deployment', () => {
       assert.equal(deployerBalance, contractParams.token.StandardERC20.a[3] - 500, 'deployer account balance incorrect')
       assert.equal(acc1Balance, 250, 'account 1 balance incorrect')
       assert.equal(acc2Balance, 250, 'account 2 balance incorrect')
+    })
+  })
+
+  describe('other default contract types deploy correctly', () => {
+
+    const provider = ganache.provider()
+    const web3 = new Web3(provider)
+
+    const gas = 3141592
+
+    let accounts, deployer, mintableInstance, mintableAddress
+    let crowdsaleInstance, crowdsaleAddress
+
+    // using before() since I can't figure out how to make the describe 
+    // callback async
+    before('get accounts', () => {
+      return web3
+        .eth
+        .getAccounts()
+        .then(accs => accounts = accs)
+    })
+
+    it('MintableERC20', async () => {
+
+      mintableInstance = await deploy(
+        zeppelinContracts.MintableERC20,
+        contractParams.token.StandardERC20.a,
+        provider,
+        accounts[0],
+        gas
+      )
+
+      // mintableInstance state
+      const deployedName = await mintableInstance.name()
+      const deployedSymbol = await mintableInstance.symbol()
+      const deployedDecimals = await mintableInstance.decimals()
+      const deployedSupply = await mintableInstance.totalSupply()
+      const deployerBalance = await mintableInstance.balanceOf.call(accounts[0])
+
+      assert.equal(deployedName, contractParams.token.StandardERC20.a[0], 'deployed name incorrect')
+      assert.equal(deployedSymbol, contractParams.token.StandardERC20.a[1], 'deployed symbol incorrect')
+      assert.equal(deployedDecimals, contractParams.token.StandardERC20.a[2], 'deployed decimals incorrect')
+      assert.equal(deployedSupply, contractParams.token.StandardERC20.a[3], 'deployed supply incorrect')
+      assert.equal(deployerBalance, contractParams.token.StandardERC20.a[3], 'deployer account balance incorrect')
+
+      mintableAddress = mintableInstance.address
+    })
+
+    it('Crowdsale', async () => {
+
+      const rate = 100
+
+      crowdsaleInstance = await deploy(
+        zeppelinContracts.Crowdsale,
+        [ rate, accounts[1], mintableAddress ],
+        provider,
+        accounts[1],
+        gas
+      )
+
+      const deployedRate = await crowdsaleInstance.rate()
+      const deployedWallet = await crowdsaleInstance.wallet()
+      const deployedToken = await crowdsaleInstance.token()
+
+      assert.equal(deployedRate, rate, 'deployed rate incorrect')
+      assert.equal(deployedWallet.toLowerCase(), accounts[1].toLowerCase(), 'deployed wallet incorrect')
+      assert.equal(deployedToken.toLowerCase(), mintableAddress.toLowerCase(), 'deployed token incorrect')
     })
   })
 })
