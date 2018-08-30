@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/rekmarks/chain-end#readme",
   "dependencies": {
-    "truffle": "^4.1.14",
+    "openzeppelin-solidity-metadata": "^1.4.2",
     "truffle-contract": "^3.0.6",
     "web3": "^1.0.0-beta.34"
   },
@@ -33,6 +33,7 @@
     "chai": "^4.1.2",
     "ganache-cli": "^6.1.4",
     "mocha": "^5.2.0",
-    "openzeppelin-solidity": "^1.12.0"
+    "openzeppelin-solidity": "^1.12.0",
+    "truffle": "^4.1.14"
   }
 }
