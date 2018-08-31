@@ -522,6 +522,9 @@ contract AllowanceCrowdsale is Crowdsale {
 
 contract StandardCrowdsale is Crowdsale, AllowanceCrowdsale {
 
+  /**
+   * @dev Calls Crowdsale and AllowanceCrowdsale constructors
+   */
   constructor
     (
       uint256 _rate,
