@@ -359,22 +359,49 @@ contract MintableToken is StandardToken, Ownable {
   }
 }
 
-contract MintableERC20 is MintableToken {
+/**
+ * @title DetailedERC20 token
+ * @dev The decimals are only for visualization purposes.
+ * All the operations are done using the smallest and indivisible token unit,
+ * just as on Ethereum all the operations are done in wei.
+ */
+contract DetailedERC20 is ERC20 {
+  string public name;
+  string public symbol;
+  uint8 public decimals;
 
-    string public name;
-    string public symbol;
-    uint8 public decimals;
+  constructor(string _name, string _symbol, uint8 _decimals) public {
+    name = _name;
+    symbol = _symbol;
+    decimals = _decimals;
+  }
+}
 
-    constructor(
-        string _name, 
-        string _symbol, 
+/**
+ * @title MintableERC20 token
+ * Wraps OpenZeppelin MintableERC20 and DetailedERC20. The constructor
+ * set the total supply of the token and grants all tokens to msg.sender
+ */
+contract MintableERC20 is MintableToken, DetailedERC20 {
+
+    /**
+     * @dev Calls DetailedERC20 constructor and sets totalSupply_ and
+     * balances[msg.sender] to equal _supply.
+     * 
+     * _supply must be pre-validated to match _decimals. Suggest accept user
+     * input and calculate correct values before calling constructor.
+     */
+    constructor
+      (
+        string _name,
+        string _symbol,
         uint8 _decimals,
-        uint _supply) public {
-
-        name = _name;
-        symbol = _symbol;
-        decimals = _decimals;
-        totalSupply_ = _supply;
-        balances[msg.sender] = _supply;
+        uint256 _supply
+      )
+      DetailedERC20(_name, _symbol, _decimals)
+      public 
+    {
+      totalSupply_ = _supply;
+      balances[msg.sender] = totalSupply_;
     }
 }

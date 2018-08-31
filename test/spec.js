@@ -3,12 +3,13 @@ const Contract = require('truffle-contract')
 const Web3 = require('web3')
 const assert = require('assert')
 
-const Deployer = require('../index').Deployer
-const deploy = require('../index').deploy
-const getInstance = require('../index').getInstance
-const callInstance = require('../index').callInstance
+const main = require('../index')
+const Deployer = main.Deployer
+const deploy = main.deploy
+const getInstance = main.getInstance
+const callInstance = main.callInstance
+const defaultContracts = main.contracts
 const contractParams = require('./helper').contractParameters
-const defaultContracts = require('../index').contracts
 const StandardERC20_JSON = defaultContracts.StandardERC20
 const StandardERC20_Test_JSON = require('./contracts/StandardERC20_Test.json')
 
@@ -300,25 +301,27 @@ describe('deployment', () => {
       mintableAddress = mintableInstance.address
     })
 
-    it('Crowdsale', async () => {
+    it('StandardCrowdsale', async () => {
 
       const rate = 100
 
-      crowdsaleInstance = await deploy(
-        defaultContracts.Crowdsale,
-        [ rate, accounts[1], mintableAddress ],
+      standardCrowdsaleInstance = await deploy(
+        defaultContracts.StandardCrowdsale,
+        [ rate, accounts[1], mintableAddress, accounts[1] ],
         provider,
         accounts[1],
         gas
       )
 
-      const deployedRate = await crowdsaleInstance.rate()
-      const deployedWallet = await crowdsaleInstance.wallet()
-      const deployedToken = await crowdsaleInstance.token()
+      const deployedRate = await standardCrowdsaleInstance.rate()
+      const deployedWallet = await standardCrowdsaleInstance.wallet()
+      const deployedToken = await standardCrowdsaleInstance.token()
+      const deployedTokenWallet = await standardCrowdsaleInstance.tokenWallet()
 
       assert.equal(deployedRate, rate, 'deployed rate incorrect')
       assert.equal(deployedWallet.toLowerCase(), accounts[1].toLowerCase(), 'deployed wallet incorrect')
       assert.equal(deployedToken.toLowerCase(), mintableAddress.toLowerCase(), 'deployed token incorrect')
+      assert.equal(deployedTokenWallet.toLowerCase(), accounts[1].toLowerCase(), 'deployed token wallet incorrect')
     })
   })
 })
