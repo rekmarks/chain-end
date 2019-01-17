@@ -1,20 +1,79 @@
-# chain-end
-For programmatically deploying an arbitrary number of pre-compiled smart contracts, and, Soon:tm:, interacting with them in all sorts of interesting ways.
+# Chain-End
+For programmatically deploying an arbitrary number of pre-compiled Solidity smart contracts.
 
-## usage
+Also comes with a clunky command line tool for, given `.sol` source files, finding dependencies of smart contracts and joining them into a single source file for easy Etherscan verification.
 
-The imported package contains three modules:
-- the `contracts` object, which contains the JSON of the default contracts
-- the `Deployer` class
-    - instantiate a deployer using `Deployer(web3Provider, accountAddress, gasLimit)`
-        - for use with MetaMask, use `Deployer(web3Provider, accountAddress)` to let MetaMask handle transaction gas
-    - add a contract type to deploy instances of it using `deployer.addContract(compiledJSON)`
+# Usage
+
+Install using `npm install chain-end`. Command line utilities require Python.
+
+## Smart Contract Deployment
+
+The imported package contains the following relevant properties:
+- The `contracts` object, which contains the JSON (`truffle compile` output) of the default contracts
+- The `Deployer` class
+    - Instantiate a deployer using `Deployer(web3Provider, accountAddress, gasLimit)`
+        - For use with MetaMask, use `Deployer(web3Provider, accountAddress)` to let MetaMask handle transaction gas
+    - Add a contract type to deploy instances of it using `deployer.addContract(compiledJSON)`
         - `compiledJSON` must be an undeployed, compiled Truffle artifact, i.e. the output of `truffle compile`
-    - deploy and access a deployed contract instance using `const instance = deployer.deploy(contractName, constructorParameters)`
-        - contractName must be a key from `contracts` or the name of a contract added using `addContract`
-    - consult `src/deployer.js` for additional methods you may want to use
-- the `deploy` function, which exposes the internal API of `Deployer` for stateless deployment
-    - deploy directly using: `deploy(contractJSON, constructorParams, web3Provider, web3Account, gasLimit)`
+    - Deploy and access a deployed contract instance using `const instance = deployer.deploy(contractName, constructorParameters)`
+        - ContractName must be a key from `contracts` or the name of a contract added using `addContract`
+    - Consult `src/web3/deployer.js` for additional methods you may want to use
+- The `deploy` function, which exposes the internal API of `Deployer` for stateless deployment
+    - Deploy directly using: `deploy(contractJSON, constructorParams, web3Provider, web3Account, gasLimit)`
     - `gasLimit` is optional
-- the `getInstance` function, which retrieves a deployed contract given its artifact, its deployed address, a provider, and (optionally) a sender account
-- the `callInstance` function, which calls a specified function from a given TruffleContract instance and returns the result
+- The `getInstance` function, which retrieves a deployed contract given its artifact, its deployed address, a provider, and (optionally) a sender account
+- The `callInstance` function, which calls a specified function from a given TruffleContract instance and returns the result
+
+## Command Line Utility
+
+- Place your `.sol` files in `solidity/source_files/raw`
+    - Place your target contracts directly under `raw/`
+    - Place your dependencies in some folder, e.g. `raw/dependencies`
+    - `raw/` will contain all OpenZeppelin contracts in the `openzeppelin-contracts` folder (note the version in `package.json`)
+- Do `npm run get-metadata`, notice the files output in `solidity/metadata`
+- Do `npm run join-source-files -- path/to/metadataFile path/to/filepathsFile`
+    - Both arguments are simply the files output by the previous script
+- Do `npm run solcompile`
+- Your contracts will now be available under `module.exports.contracts`
+- use `npm run get-metadata` and specify a directory to get the metadata of all
+  Solidity files therein
+  - e.g. `npm run get-metadata -- path/to/my/directory`
+  - you can also use `npm run get-openzeppelin-metadata` to get the metadata of
+    the OpenZeppelin contracts, libraries, and interfaces (check package.json
+    to see which version)
+- by default, metadata is output to the `metadata` folder in the project root, but
+  you can specify another directory as the second parameter
+- a Python script does the heavy lifting
+  - Use the third parameter to specify a
+    path to your local Python installation if it gives you trouble
+
+### Metadata
+
+If the metadata interests you, here is a partial example output:
+```
+{
+  "Address": {
+    "compiler": "^0.5.0",
+    "dependencies": [],
+    "name": "Address",
+    "type": "library"
+  },
+  "AllowanceCrowdsale": {
+    "compiler": "^0.5.0",
+    "dependencies": [
+      "Crowdsale",
+      "IERC20",
+      "Math",
+      "SafeERC20",
+      "SafeMath"
+    ],
+    "name": "AllowanceCrowdsale",
+    "type": "contract"
+  },
+  ...
+}
+```
+    
+# License
+MIT
