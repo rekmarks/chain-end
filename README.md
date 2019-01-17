@@ -1,4 +1,4 @@
-# Chain-End
+# ChainEnd
 For programmatically deploying an arbitrary number of pre-compiled Solidity smart contracts.
 
 Also comes with a clunky command line utility for, given `.sol` source files, finding dependencies of smart contracts and joining them into a single source file for easy Etherscan verification.

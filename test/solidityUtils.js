@@ -1,7 +1,7 @@
 
 const assert = require('assert')
 
-const { getMetadata, sourceFiles } = require('../index.js')
+const { solidityUtils } = require('../index.js')
 
 describe('joinSourceFiles', () => {
 
