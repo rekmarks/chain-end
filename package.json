@@ -1,11 +1,21 @@
 {
   "name": "chain-end",
   "version": "0.5.4",
-  "description": "Programmatic pre-compiled Truffle contract deployment, and soon, more",
+  "description": "Programmatic pre-compiled Truffle contract deployment",
   "main": "index.js",
   "scripts": {
+    "get-metadata": "node ./src/solidity_utils/scripts/getMetadataScript.js ./solidity/source_files/raw",
+    "join-source-files": "node ./src/solidity_utils/scripts/joinAllSourceFilesScript.js",
+    "solcompile": "npm run _solcompile1 && npm run _solcompile2",
     "test": "mocha",
-    "test:debug": "mocha --inspect-brk --inspect"
+    "test:debug": "mocha --inspect-brk --inspect",
+    "postinstall": "npm run make-dirs && npm run copy-oz-files && npm run init-truffle",
+    "make-dirs": "mkdir ./solidity/metadata && mkdir ./solidity/truffle && mkdir ./solidity/compiled",
+    "init-truffle": "cd solidity/truffle && truffle init && cd ../..",
+    "copy-oz-files": "cp -R ./node_modules/openzeppelin-solidity/contracts ./solidity/source_files/raw/openzeppelin-contracts",
+    "_solcompile1": "cp ./solidity/source_files/complete/* ./solidity/truffle/contracts/ && cd solidity/truffle/ && truffle compile && cd ../..",
+    "_solcompile2": "node ./src/solidity_utils/scripts/getTargetArtifactsScript.js",
+    "_get-metadata": "node ./src/solidity_utils/scripts/getMetadataScript.js"
   },
   "repository": {
     "type": "git",
@@ -13,8 +23,7 @@
   },
   "keywords": [
     "Ethereum",
-    "smart",
-    "contracts",
+    "smart contracts",
     "Truffle",
     "Solidity"
   ],
@@ -25,15 +34,18 @@
   },
   "homepage": "https://github.com/rekmarks/chain-end#readme",
   "dependencies": {
-    "openzeppelin-solidity-metadata": "^1.4.2",
-    "truffle-contract": "^3.0.6",
-    "web3": "^1.0.0-beta.34"
+    "eol": "^0.9.1",
+    "python-shell": "^1.0.7",
+    "solidity-metadata": "^1.0.0",
+    "time-stamp": "^2.2.0",
+    "truffle-contract": "^4.0.1",
+    "web3": "^1.0.0-beta.37"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "ganache-cli": "^6.1.4",
+    "chai": "^4.2.0",
+    "ganache-cli": "^6.2.5",
     "mocha": "^5.2.0",
-    "openzeppelin-solidity": "^1.12.0",
-    "truffle": "^4.1.14"
+    "openzeppelin-solidity": "^2.1.1",
+    "truffle": "^5.0.1"
   }
 }

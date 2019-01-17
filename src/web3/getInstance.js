@@ -4,9 +4,9 @@ const Contract = require('truffle-contract')
 module.exports = getInstance
 
 /**
- * 
+ *
  * Asynchronous. Validates input. Pure except for web3 calls.
- * 
+ *
  * @param  {object} contractArtifact  the artifact of the deployed contract
  * @param  {object} web3Provider      web3 provider
  * @param  {string} senderAccount     transaction sender
@@ -46,7 +46,7 @@ async function getInstance (
     throw new Error('getInstance: no instance was returned')
   }
   if (instance.address !== instanceAddress) {
-    throw new Error('getInstance: invalid instance address')  
+    throw new Error('getInstance: invalid instance address')
   }
 
   return instance

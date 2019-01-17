@@ -1,0 +1,614 @@
+{
+  "Address": {
+    "dependencies": [],
+    "name": "Address",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "AllowanceCrowdsale": {
+    "dependencies": [
+      "Crowdsale",
+      "IERC20",
+      "Math",
+      "SafeERC20",
+      "SafeMath"
+    ],
+    "name": "AllowanceCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "Arrays": {
+    "dependencies": [
+      "Math"
+    ],
+    "name": "Arrays",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "BurnableERC20": {
+    "dependencies": [
+      "ERC20",
+      "ERC20Burnable",
+      "ERC20Detailed"
+    ],
+    "name": "BurnableERC20",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "BurnableMintableERC20": {
+    "dependencies": [
+      "ERC20",
+      "ERC20Burnable",
+      "ERC20Detailed",
+      "ERC20Mintable"
+    ],
+    "name": "BurnableMintableERC20",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "CappedCrowdsale": {
+    "dependencies": [
+      "Crowdsale",
+      "SafeMath"
+    ],
+    "name": "CappedCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "CapperRole": {
+    "dependencies": [
+      "Roles"
+    ],
+    "name": "CapperRole",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ConditionalEscrow": {
+    "dependencies": [
+      "Escrow"
+    ],
+    "name": "ConditionalEscrow",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "Counter": {
+    "dependencies": [],
+    "name": "Counter",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "Crowdsale": {
+    "dependencies": [
+      "IERC20",
+      "ReentrancyGuard",
+      "SafeERC20",
+      "SafeMath"
+    ],
+    "name": "Crowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ECDSA": {
+    "dependencies": [],
+    "name": "ECDSA",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "ERC165": {
+    "dependencies": [
+      "IERC165"
+    ],
+    "name": "ERC165",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC165Checker": {
+    "dependencies": [],
+    "name": "ERC165Checker",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "ERC20": {
+    "dependencies": [
+      "IERC20",
+      "SafeMath"
+    ],
+    "name": "ERC20",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC20Burnable": {
+    "dependencies": [
+      "ERC20"
+    ],
+    "name": "ERC20Burnable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC20Capped": {
+    "dependencies": [
+      "ERC20Mintable"
+    ],
+    "name": "ERC20Capped",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC20Detailed": {
+    "dependencies": [
+      "IERC20"
+    ],
+    "name": "ERC20Detailed",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC20Migrator": {
+    "dependencies": [
+      "ERC20Mintable",
+      "IERC20",
+      "Math",
+      "SafeERC20"
+    ],
+    "name": "ERC20Migrator",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC20Mintable": {
+    "dependencies": [
+      "ERC20",
+      "MinterRole"
+    ],
+    "name": "ERC20Mintable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC20Pausable": {
+    "dependencies": [
+      "ERC20",
+      "Pausable"
+    ],
+    "name": "ERC20Pausable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC20TokenMetadata": {
+    "dependencies": [
+      "IERC20"
+    ],
+    "name": "ERC20TokenMetadata",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC20WithMetadata": {
+    "dependencies": [
+      "ERC20TokenMetadata",
+      "IERC20"
+    ],
+    "name": "ERC20WithMetadata",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC721": {
+    "dependencies": [
+      "Address",
+      "ERC165",
+      "IERC721",
+      "IERC721Receiver",
+      "SafeMath"
+    ],
+    "name": "ERC721",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC721Burnable": {
+    "dependencies": [
+      "ERC721"
+    ],
+    "name": "ERC721Burnable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC721Enumerable": {
+    "dependencies": [
+      "ERC165",
+      "ERC721",
+      "IERC721Enumerable"
+    ],
+    "name": "ERC721Enumerable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC721Full": {
+    "dependencies": [
+      "ERC721",
+      "ERC721Enumerable",
+      "ERC721Metadata"
+    ],
+    "name": "ERC721Full",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC721Holder": {
+    "dependencies": [
+      "IERC721Receiver"
+    ],
+    "name": "ERC721Holder",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC721Metadata": {
+    "dependencies": [
+      "ERC165",
+      "ERC721",
+      "IERC721Metadata"
+    ],
+    "name": "ERC721Metadata",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC721MetadataMintable": {
+    "dependencies": [
+      "ERC721",
+      "ERC721Metadata",
+      "MinterRole"
+    ],
+    "name": "ERC721MetadataMintable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC721Mintable": {
+    "dependencies": [
+      "ERC721",
+      "MinterRole"
+    ],
+    "name": "ERC721Mintable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ERC721Pausable": {
+    "dependencies": [
+      "ERC721",
+      "Pausable"
+    ],
+    "name": "ERC721Pausable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "Escrow": {
+    "dependencies": [
+      "SafeMath",
+      "Secondary"
+    ],
+    "name": "Escrow",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "FinalizableCrowdsale": {
+    "dependencies": [
+      "SafeMath",
+      "TimedCrowdsale"
+    ],
+    "name": "FinalizableCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "IERC165": {
+    "dependencies": [],
+    "name": "IERC165",
+    "solidityVersion": "^0.5.0",
+    "type": "interface"
+  },
+  "IERC20": {
+    "dependencies": [],
+    "name": "IERC20",
+    "solidityVersion": "^0.5.0",
+    "type": "interface"
+  },
+  "IERC721": {
+    "dependencies": [
+      "IERC165"
+    ],
+    "name": "IERC721",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "IERC721Enumerable": {
+    "dependencies": [
+      "IERC721"
+    ],
+    "name": "IERC721Enumerable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "IERC721Full": {
+    "dependencies": [
+      "IERC721",
+      "IERC721Enumerable",
+      "IERC721Metadata"
+    ],
+    "name": "IERC721Full",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "IERC721Metadata": {
+    "dependencies": [
+      "IERC721"
+    ],
+    "name": "IERC721Metadata",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "IERC721Receiver": {
+    "dependencies": [],
+    "name": "IERC721Receiver",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "IncreasingPriceCrowdsale": {
+    "dependencies": [
+      "SafeMath",
+      "TimedCrowdsale"
+    ],
+    "name": "IncreasingPriceCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "IndividuallyCappedCrowdsale": {
+    "dependencies": [
+      "CapperRole",
+      "Crowdsale",
+      "SafeMath"
+    ],
+    "name": "IndividuallyCappedCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "Math": {
+    "dependencies": [],
+    "name": "Math",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "MerkleProof": {
+    "dependencies": [],
+    "name": "MerkleProof",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "MintableERC20": {
+    "dependencies": [
+      "ERC20",
+      "ERC20Detailed",
+      "ERC20Mintable"
+    ],
+    "name": "MintableERC20",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "MintedCrowdsale": {
+    "dependencies": [
+      "Crowdsale",
+      "ERC20Mintable"
+    ],
+    "name": "MintedCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "MinterRole": {
+    "dependencies": [
+      "Roles"
+    ],
+    "name": "MinterRole",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "Ownable": {
+    "dependencies": [],
+    "name": "Ownable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "Pausable": {
+    "dependencies": [
+      "PauserRole"
+    ],
+    "name": "Pausable",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "PausableCrowdsale": {
+    "dependencies": [
+      "Crowdsale",
+      "Pausable"
+    ],
+    "name": "PausableCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "PauserRole": {
+    "dependencies": [
+      "Roles"
+    ],
+    "name": "PauserRole",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "PaymentSplitter": {
+    "dependencies": [
+      "SafeMath"
+    ],
+    "name": "PaymentSplitter",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "PostDeliveryCrowdsale": {
+    "dependencies": [
+      "SafeMath",
+      "TimedCrowdsale"
+    ],
+    "name": "PostDeliveryCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "PullPayment": {
+    "dependencies": [
+      "Escrow"
+    ],
+    "name": "PullPayment",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "ReentrancyGuard": {
+    "dependencies": [],
+    "name": "ReentrancyGuard",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "RefundEscrow": {
+    "dependencies": [
+      "ConditionalEscrow"
+    ],
+    "name": "RefundEscrow",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "RefundableCrowdsale": {
+    "dependencies": [
+      "FinalizableCrowdsale",
+      "RefundEscrow",
+      "SafeMath"
+    ],
+    "name": "RefundableCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "RefundablePostDeliveryCrowdsale": {
+    "dependencies": [
+      "PostDeliveryCrowdsale",
+      "RefundableCrowdsale"
+    ],
+    "name": "RefundablePostDeliveryCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "Roles": {
+    "dependencies": [],
+    "name": "Roles",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "SafeERC20": {
+    "dependencies": [
+      "IERC20",
+      "SafeMath"
+    ],
+    "name": "SafeERC20",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "SafeMath": {
+    "dependencies": [],
+    "name": "SafeMath",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "Secondary": {
+    "dependencies": [],
+    "name": "Secondary",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "SignatureBouncer": {
+    "dependencies": [
+      "ECDSA",
+      "SignerRole"
+    ],
+    "name": "SignatureBouncer",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "SignedSafeMath": {
+    "dependencies": [],
+    "name": "SignedSafeMath",
+    "solidityVersion": "^0.5.0",
+    "type": "library"
+  },
+  "SignerRole": {
+    "dependencies": [
+      "Roles"
+    ],
+    "name": "SignerRole",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "StandardCrowdsale": {
+    "dependencies": [
+      "AllowanceCrowdsale",
+      "Crowdsale"
+    ],
+    "name": "StandardCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "StandardERC20": {
+    "dependencies": [
+      "ERC20",
+      "ERC20Detailed"
+    ],
+    "name": "StandardERC20",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "TimedCrowdsale": {
+    "dependencies": [
+      "Crowdsale",
+      "SafeMath"
+    ],
+    "name": "TimedCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "TokenTimelock": {
+    "dependencies": [
+      "SafeERC20"
+    ],
+    "name": "TokenTimelock",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "TokenVesting": {
+    "dependencies": [
+      "Ownable",
+      "SafeERC20",
+      "SafeMath"
+    ],
+    "name": "TokenVesting",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "WhitelistAdminRole": {
+    "dependencies": [
+      "Roles"
+    ],
+    "name": "WhitelistAdminRole",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "WhitelistCrowdsale": {
+    "dependencies": [
+      "Crowdsale",
+      "WhitelistedRole"
+    ],
+    "name": "WhitelistCrowdsale",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  },
+  "WhitelistedRole": {
+    "dependencies": [
+      "Roles",
+      "WhitelistAdminRole"
+    ],
+    "name": "WhitelistedRole",
+    "solidityVersion": "^0.5.0",
+    "type": "contract"
+  }
+}

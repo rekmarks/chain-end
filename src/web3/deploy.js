@@ -4,15 +4,15 @@ const Contract = require('truffle-contract')
 module.exports = deploy
 
 /**
- * Deploys an instance of the provided truffleContract. 
+ * Deploys an instance of the provided truffleContract.
  * Asynchronous. Validates input. Pure except for web3 calls.
- * 
- * @param  {object} truffleContract   the contract to deploy
- * @param  {array}  constructorParams contract constructor parameters
- * @param  {object} web3Provider      web3 provider
- * @param  {string} senderAccount     deploying account
- * @param  {number} gasLimit          (optional) gas limit
- * @return {object}                   the deployed contract instance
+ *
+ * @param {object} truffleContract the contract to deploy
+ * @param {array} constructorParams contract constructor parameters
+ * @param {object} web3Provider web3 provider
+ * @param {string} senderAccount  deploying account
+ * @param {number} gasLimit (optional) gas limit
+ * @return {object} the deployed contract instance
  */
 async function deploy (
     contractJSON,
@@ -48,7 +48,7 @@ async function deploy (
     throw new Error('deploy: contractInstance missing transactionHash')
   }
   if (!contractInstance.address) {
-    throw new Error('deploy: contractInstance missing address')  
+    throw new Error('deploy: contractInstance missing address')
   }
 
   return contractInstance

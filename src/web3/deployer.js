@@ -1,19 +1,19 @@
+
+const Contract = require('truffle-contract')
+
+const defaultContracts = require('../solidityImports')
+
 /**
  * Smart contract deployment manager.
  * Deploys contracts and keeps track of them.
  * Assumes pre-compiled Truffle artifacts of contracts.
  */
-
-const Contract = require('truffle-contract')
-
-const defaultContracts = require('./contracts')
-
 class Deployer {
 
   /**
    * Constructor. Sets web3 provider, deploying account, and (optionally) gas limit.
    * Do not set gas limit for use with MetaMask.
-   * 
+   *
    * @param  {object} web3Provider   the web3 provider
    * @param  {string} account        the deploying account id
    * @param  {number} gasLimit       the deployment transaction gas limit, if desired
@@ -91,12 +91,12 @@ class Deployer {
   }
 
   /**
-   * Deploys a truffleContract with constructorParams. Asynchronous pure 
+   * Deploys a truffleContract with constructorParams. Asynchronous pure
    * function.
    *
-   * Attempts to deploy truffleContract if provided, else attempts to find 
+   * Attempts to deploy truffleContract if provided, else attempts to find
    * contract in internal contractTypes, else fails.
-   * 
+   *
    * @param  {string}   contractName      name of the contract to deploy
    * @param  {array}    constructorParams contract constructor parameters
    * @return {object}                     the deployed instance
@@ -108,9 +108,9 @@ class Deployer {
     if (!truffleContract) {
       throw new Error('deploy: contract neither found nor supplied')
     }
-    
+
     const contractInstance = await _deploy(
-      truffleContract, 
+      truffleContract,
       constructorParams,
       this.config.provider,
       this.config.account,
@@ -123,10 +123,10 @@ class Deployer {
     // to keep track of it
     return contractInstance
   }
-  
+
   /**
    * PRIVATE. Stores contract instance.
-   * @param {object} a deployed contract instance     
+   * @param {object} a deployed contract instance
    */
   _addInstance(contractInstance) {
 
@@ -135,7 +135,7 @@ class Deployer {
       throw new Error('_addInstance: contractInstance missing transactionHash')
     }
     if (!contractInstance.address) {
-      throw new Error('_addInstance: contractInstance missing address')  
+      throw new Error('_addInstance: contractInstance missing address')
     }
 
     // get the contract name and address per Truffle artifact schema
@@ -160,9 +160,9 @@ class Deployer {
 }
 
 /**
- * PRIVATE. Deploys an instance of the truffleContract. 
+ * PRIVATE. Deploys an instance of the truffleContract.
  * Asynchronous pure function. Assumes valid input.
- * 
+ *
  * @param  {object} truffleContract   the contract to deploy
  * @param  {array}  constructorParams contract constructor parameters
  * @param  {object} provider          web3 provider
@@ -172,8 +172,8 @@ class Deployer {
  */
 async function _deploy (
     truffleContract,
-    constructorParams, 
-    provider,  
+    constructorParams,
+    provider,
     account,
     gas
   ) {
