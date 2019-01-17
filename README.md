@@ -1,7 +1,7 @@
 # Chain-End
 For programmatically deploying an arbitrary number of pre-compiled Solidity smart contracts.
 
-Also comes with a clunky command line tool for, given `.sol` source files, finding dependencies of smart contracts and joining them into a single source file for easy Etherscan verification.
+Also comes with a clunky command line utility for, given `.sol` source files, finding dependencies of smart contracts and joining them into a single source file for easy Etherscan verification.
 
 # Usage
 
@@ -32,21 +32,12 @@ The imported package contains the following relevant properties:
     - Place your dependencies in some folder, e.g. `raw/dependencies`
     - `raw/` will contain all OpenZeppelin contracts in the `openzeppelin-contracts` folder (note the version in `package.json`)
 - Do `npm run get-metadata`, notice the files output in `solidity/metadata`
-- Do `npm run join-source-files -- path/to/metadataFile path/to/filepathsFile`
+- Do `npm run join-source-files -- solidity/metadata/metadataFile solidity/metadata/filepathsFile`
     - Both arguments are simply the files output by the previous script
 - Do `npm run solcompile`
-- Your contracts will now be available under `module.exports.contracts`
-- use `npm run get-metadata` and specify a directory to get the metadata of all
-  Solidity files therein
-  - e.g. `npm run get-metadata -- path/to/my/directory`
-  - you can also use `npm run get-openzeppelin-metadata` to get the metadata of
-    the OpenZeppelin contracts, libraries, and interfaces (check package.json
-    to see which version)
-- by default, metadata is output to the `metadata` folder in the project root, but
-  you can specify another directory as the second parameter
-- a Python script does the heavy lifting
-  - Use the third parameter to specify a
-    path to your local Python installation if it gives you trouble
+- Your contracts will now be available through the package in `module.exports.contracts`
+    - Their Truffle artifacts will be in `solidity/compiled`
+    - Their joined source files in `solidity/source_files/complete`
 
 ### Metadata
 
