@@ -1,5 +1,5 @@
-node_modules
 temp
 solidity/truffle
 solidity/source_files/raw
 solidity/metadata
+*.tgz

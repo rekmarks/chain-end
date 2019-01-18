@@ -1,14 +1,5 @@
-
-const fs = require('fs')
-
-const { getAbsolutePath } = require('./utils.js')
-
-const compiledPath = getAbsolutePath('/solidity/compiled/')
-const compiledFiles = fs.readdirSync(compiledPath)
-
-compiledFiles.forEach( fileName => {
-  if (fileName.search('.json') !== -1) {
-    const entityName = fileName.split('.json')[0]
-    module.exports[entityName] = require(compiledPath + fileName)
-  }
-})
+module.exports.BurnableERC20 = require('../solidity/compiled/BurnableERC20.json')
+module.exports.BurnableMintableERC20 = require('../solidity/compiled/BurnableMintableERC20.json')
+module.exports.MintableERC20 = require('../solidity/compiled/MintableERC20.json')
+module.exports.StandardCrowdsale = require('../solidity/compiled/StandardCrowdsale.json')
+module.exports.StandardERC20 = require('../solidity/compiled/StandardERC20.json')
