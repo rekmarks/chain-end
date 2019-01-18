@@ -27,6 +27,9 @@ The imported package contains the following relevant properties:
 
 ## Command Line Utility
 
+All scripts must be run from the `chain-end` root directory.
+
+- Do `npm run cli-setup`
 - Place your `.sol` files in `solidity/source_files/raw`
     - Place your target contracts directly under `raw/`
     - Place your dependencies in some folder, e.g. `raw/dependencies`

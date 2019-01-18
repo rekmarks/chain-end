@@ -9,7 +9,7 @@
     "solcompile": "npm run _solcompile1 && npm run _solcompile2",
     "test": "mocha",
     "test:debug": "mocha --inspect-brk --inspect",
-    "postinstall": "npm run make-dirs && npm run copy-oz-files && npm run init-truffle",
+    "cli-setup": "npm run make-dirs && npm run copy-oz-files && npm run init-truffle",
     "make-dirs": "mkdir ./solidity/metadata && mkdir ./solidity/truffle && mkdir ./solidity/compiled",
     "init-truffle": "cd solidity/truffle && truffle init && cd ../..",
     "copy-oz-files": "cp -R ./node_modules/openzeppelin-solidity/contracts ./solidity/source_files/raw/openzeppelin-contracts",
