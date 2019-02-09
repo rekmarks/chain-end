@@ -1,6 +1,6 @@
 {
   "name": "chain-end",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Programmatic pre-compiled Truffle contract deployment",
   "main": "index.js",
   "scripts": {
