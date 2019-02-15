@@ -36,18 +36,15 @@
   "homepage": "https://github.com/rekmarks/chain-end#readme",
   "dependencies": {
     "eol": "^0.9.1",
-    "ethers": "^4.0.20",
-    "python-shell": "^1.0.7",
-    "solidity-metadata": "^1.0.0",
     "time-stamp": "^2.2.0",
     "truffle-contract": "^4.0.4",
     "web3": "^1.0.0-beta.37"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "ganache-cli": "^6.2.5",
+    "python-shell": "^1.0.7",
+    "ganache-cli": "^6.3.0",
     "mocha": "^5.2.0",
     "openzeppelin-solidity": "^2.1.1",
-    "truffle": "^5.0.1"
+    "truffle": "^5.0.4"
   }
 }
