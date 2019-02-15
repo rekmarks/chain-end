@@ -44,6 +44,9 @@ async function deploy (
   const contractInstance = await truffleContract.new(...constructorParams)
 
   // validate instance
+  if (!contractInstance) {
+    throw new Error('deploy: deployment returned falsy value')
+  }
   if (!contractInstance.transactionHash) {
     throw new Error('deploy: contractInstance missing transactionHash')
   }
