@@ -2,12 +2,6 @@
 // src
 module.exports.contracts = require('./src/solidityImports')
 
-// src/solidity_utils
-module.exports.solidityUtils = {
-  getMetadata: require('./src/solidity_utils/getMetadata'),
-  sourceFiles: require('./src/solidity_utils/joinSourceFiles'),
-}
-
 // src/web3
 module.exports.deploy = require('./src/web3/deploy')
 module.exports.Deployer = require('./src/web3/deployer')

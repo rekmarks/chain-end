@@ -35,16 +35,16 @@
   },
   "homepage": "https://github.com/rekmarks/chain-end#readme",
   "dependencies": {
-    "eol": "^0.9.1",
-    "time-stamp": "^2.2.0",
-    "truffle-contract": "^4.0.4",
-    "web3": "^1.0.0-beta.37"
+    "truffle-contract": "^4.0.5"
   },
   "devDependencies": {
+    "eol": "^0.9.1",
+    "time-stamp": "^2.2.0",
     "python-shell": "^1.0.7",
     "ganache-cli": "^6.3.0",
     "mocha": "^5.2.0",
     "openzeppelin-solidity": "^2.1.1",
-    "truffle": "^5.0.4"
+    "truffle": "^5.0.4",
+    "web3": "^1.0.0-beta.37"
   }
 }

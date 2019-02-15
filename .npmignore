@@ -3,3 +3,6 @@ solidity/truffle
 solidity/source_files/raw
 solidity/metadata
 *.tgz
+test
+src/solidity_utils
+src/utils.js
