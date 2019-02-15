@@ -1,7 +1,7 @@
 # ChainEnd
 For programmatically deploying an arbitrary number of pre-compiled Solidity smart contracts.
 
-Also comes with a clunky command line utility for, given `.sol` source files, finding dependencies of smart contracts and joining them into a single source file for easy Etherscan verification.
+You can also clone the repo to access a clunky command line utility for, given `.sol` source files, finding dependencies of smart contracts and joining them into a single source file for easy Etherscan verification.
 
 # Usage
 
@@ -26,6 +26,8 @@ The imported package contains the following relevant properties:
 - The `callInstance` function, which calls a specified function from a given TruffleContract instance and returns the result
 
 ## Command Line Utility
+
+Note: GitHub repository only
 
 All scripts must be run from the `chain-end` project root directory.
 
