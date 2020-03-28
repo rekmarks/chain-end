@@ -1,5 +1,5 @@
 
-const Contract = require('truffle-contract')
+const Contract = require('@truffle/contract')
 
 const defaultContracts = require('../solidityImports')
 
@@ -17,7 +17,7 @@ class Deployer {
    * @param  {object} web3Provider   the web3 provider
    * @param  {string} account        the deploying account id
    * @param  {number} gasLimit       the deployment transaction gas limit, if desired
-   * @param  {object} contractTypes  the truffle-contracts to use
+   * @param  {object} contractTypes  the @truffle/contracts to use
    */
   constructor(web3Provider, account, gasLimit=null, contractTypes=defaultContracts) {
 
@@ -181,7 +181,7 @@ async function _deploy (
   const contract = Object.assign({}, truffleContract)
   contract.setProvider(provider)
 
-  // set contract defaults per truffle-contract API
+  // set contract defaults per @truffle/contract API
   // set gas limit if desired, otherwise don't supply it (for use with MetaMask)
   const contractDefaults = (gas ? { from: account, gas: gas} : {from: account})
   contract.defaults(contractDefaults)

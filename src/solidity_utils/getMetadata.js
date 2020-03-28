@@ -5,7 +5,7 @@ const timestamp = require('time-stamp')
 const { getAbsolutePath } = require('../utils')
 
 module.exports = {
-  getMetadata: getMetadata,
+  getMetadata,
 }
 
 /**

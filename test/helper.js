@@ -18,4 +18,8 @@ const contractParameters = {
   }
 }
 
+module.exports.asNumber = bn => {
+  return bn.toNumber()
+}
+
 module.exports.contractParameters = contractParameters

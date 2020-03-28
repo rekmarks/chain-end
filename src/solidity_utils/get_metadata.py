@@ -49,7 +49,7 @@ def writeFile(filepath, data):
         json.dump(data, data_file, indent=2, sort_keys=True)
 
 # parse a contract, interface, or library from Solidity source file
-def parseEntity(lines, entity_type, solidity_version):
+def parseEntity(lines, entity_type, solidity_version, filename):
 
     entity_data = {
         'type': entity_type,
@@ -125,6 +125,9 @@ def getMetadata(root_path):
                 # file-level import statements are collected
                 imports = []
 
+                # lines of the current entity
+                entityLines = []
+
                 # flag for lines belonging to entity declarations
                 lineIsEntity = False
 
@@ -143,7 +146,8 @@ def getMetadata(root_path):
                             entity_data = parseEntity(
                                 entityLines,
                                 entity_type,
-                                compiler_version
+                                compiler_version,
+                                filename
                             )
 
                             entity_data['dependencies'].update(imports)

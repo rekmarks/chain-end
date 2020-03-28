@@ -6,10 +6,10 @@
   "scripts": {
     "get-metadata": "node ./src/solidity_utils/scripts/getMetadataScript.js ./solidity/source_files/raw",
     "join-source-files": "node ./src/solidity_utils/scripts/joinAllSourceFilesScript.js",
-    "solcompile": "npm run _solcompile1 && npm run _solcompile2",
+    "solcompile": "yarn _solcompile1 && yarn _solcompile2",
     "test": "mocha",
     "test:debug": "mocha --inspect-brk --inspect",
-    "cli-setup": "npm run make-dirs && npm run copy-oz-files && npm run init-truffle",
+    "cli-setup": "yarn make-dirs && yarn copy-oz-files && yarn init-truffle",
     "make-dirs": "mkdir ./solidity/metadata && mkdir ./solidity/truffle && mkdir ./solidity/compiled",
     "init-truffle": "cd solidity/truffle && truffle init && cd ../..",
     "copy-oz-files": "cp -R ./node_modules/openzeppelin-solidity/contracts ./solidity/source_files/raw/openzeppelin-contracts",
@@ -28,23 +28,26 @@
     "Truffle",
     "Solidity"
   ],
-  "author": "Erik Marks <rekmarks@icloud.com>",
+  "author": "Erik Marks <rekmarks@protonmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rekmarks/chain-end/issues"
   },
   "homepage": "https://github.com/rekmarks/chain-end#readme",
   "dependencies": {
-    "truffle-contract": "^4.0.5"
+    "@truffle/contract": "^4.1.14"
   },
   "devDependencies": {
     "eol": "^0.9.1",
-    "time-stamp": "^2.2.0",
-    "python-shell": "^1.0.7",
     "ganache-cli": "^6.3.0",
-    "mocha": "^5.2.0",
-    "openzeppelin-solidity": "^2.1.1",
-    "truffle": "^5.0.4",
-    "web3": "^1.0.0-beta.37"
+    "mocha": "^7.1.1",
+    "openzeppelin-solidity": "^2.5.0",
+    "python-shell": "^1.0.7",
+    "time-stamp": "^2.2.0",
+    "truffle": "^5.1.19",
+    "web3": "^1.2.6"
+  },
+  "resolutions": {
+    "swarm-js": "^0.1.40"
   }
 }

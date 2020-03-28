@@ -2,8 +2,8 @@
 // src
 module.exports.contracts = require('./src/solidityImports')
 
-// src/web3
-module.exports.deploy = require('./src/web3/deploy')
-module.exports.Deployer = require('./src/web3/deployer')
-module.exports.getInstance = require('./src/web3/getInstance')
-module.exports.callInstance = require('./src/web3/callInstance')
+// src/deployer
+module.exports.deploy = require('./src/deployer/deploy')
+module.exports.Deployer = require('./src/deployer/Deployer')
+module.exports.getInstance = require('./src/deployer/getInstance')
+module.exports.callInstance = require('./src/deployer/callInstance')

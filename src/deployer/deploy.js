@@ -1,5 +1,5 @@
 
-const Contract = require('truffle-contract')
+const Contract = require('@truffle/contract')
 
 module.exports = deploy
 
